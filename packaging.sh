@@ -4,7 +4,7 @@
 ## Please run as a user with normal privilege
 ## Do not use root
 
-## Support OS: Amazon Linux 2015.09
+## Support OS: Amazon Linux 2015.09+
 ## Script writen by Leonard Huang (lueoad@outlook.com)
 
 cd
@@ -27,17 +27,18 @@ mv *.pm usr/local/lib64/perl5/
 
 chmod 600 etc/awslogs/awscreds.conf
 cat > etc/cron.d/aws-scripts-mon << EOF
+# Version: 1.2.1-9
 
-# Version: 1.2.1-8
-MAILTO=""
-PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-
-*/5 * * * * root /opt/aws/bin/mon-put-instance-data --mem-util --mem-used --mem-avail --swap-util --swap-used --disk-space-used --disk-space-avail --disk-space-util --disk-path=/ --from-cron --aws-credential-file=/etc/awslogs/awscreds.conf
-
+*/5 * * * * root /opt/aws/bin/mon-put-instance-data --mem-util --mem-used \
+  --mem-avail --swap-util --swap-used --disk-space-used --disk-space-avail \ --disk-space-util --disk-path=/ --from-cron \ --aws-credential-file=/etc/awslogs/awscreds.conf
 EOF
 
 cd ..
-fpm -s dir -t rpm -C ./aws-scripts-mon --name aws-scripts-mon --version 1.2.1 --iteration 8amzn --depends  "perl-DateTime perl-Sys-Syslog perl-LWP-Protocol-https" --config-files /etc/awslogs/awscreds.conf --description "Amazon CloudWatch Monitoring Scripts for Linux\nhttp://aws.amazon.com/code/8720044071969977"
+fpm -s dir -t rpm -C ./aws-scripts-mon --name aws-scripts-mon \
+  --version 1.2.1 --iteration 9amzn --depends \
+  "perl-DateTime perl-Sys-Syslog perl-LWP-Protocol-https" \
+  --config-files /etc/awslogs/awscreds.conf \
+  --description "Amazon CloudWatch Monitoring Scripts for Linux\nhttp://aws.amazon.com/code/8720044071969977"
 
 ## Clean up
 
