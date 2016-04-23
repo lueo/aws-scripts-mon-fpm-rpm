@@ -37,8 +37,7 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 EOF
 
 cd ..
-fpm -s dir -t rpm -C ./aws-scripts-mon --name aws-scripts-mon --version 1.2.1 --iteration 8amzn --depends  "perl-DateTime perl-Sys-Syslog perl-LWP-Protocol-https" --description "Amazon CloudWatch Monitoring Scripts for Linux\nhttp://aws.amazon.com/code/8720044071969977"
-
+fpm -s dir -t rpm -C ./aws-scripts-mon --name aws-scripts-mon --version 1.2.1 --iteration 8amzn --depends  "perl-DateTime perl-Sys-Syslog perl-LWP-Protocol-https" --config-files /etc/awslogs/awscreds.conf --description "Amazon CloudWatch Monitoring Scripts for Linux\nhttp://aws.amazon.com/code/8720044071969977"
 
 ## Clean up
 
